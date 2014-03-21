@@ -5,33 +5,13 @@ using System.Reflection;
 
 namespace Ioget
 {
-
-    public interface Conversion
-    {
-        bool IsApplicable(ParameterInfo info);
-        object Apply(string value);
-    }
-
-
-    public class StringConversion : Conversion
-    {
-        public bool IsApplicable(ParameterInfo value)
-        {
-            return true;
-        }
-
-        public object Apply(string value)
-        {
-            return value;
-        }
-    }
-
     public class Instantiator
     {
-        private readonly List<Conversion> convertions; 
+        private readonly List<Conversion<object>> convertions; 
+
         public Instantiator()
         {
-            this.convertions = new List<Conversion>
+            convertions = new List<Conversion<object>>
             {
                 new IntConvertion(), new StringConversion()
             };
@@ -47,20 +27,6 @@ namespace Ioget
         private object ResolveType(ParameterInfo info, string value)
         {
             return convertions.First(c => c.IsApplicable(info)).Apply(value);
-        }
-    }
-
-    public class IntConvertion : Conversion
-    {
-
-        public bool IsApplicable(ParameterInfo info)
-        {
-            return info.ParameterType == typeof(int);
-        }
-
-        public object Apply(string value)
-        {
-            return Convert.ToInt32(value);
         }
     }
 }
