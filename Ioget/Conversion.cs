@@ -38,6 +38,14 @@ namespace Ioget
         }
     }
 
+    public class LongConvertion : PrimitiveApplicableConversion<long>
+    {
+        public override object Apply(string value)
+        {
+            return Convert.ToInt64(value);
+        }
+    }
+
     public class IntConvertion : PrimitiveApplicableConversion<int>
     {
         public override object Apply(string value)

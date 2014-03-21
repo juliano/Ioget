@@ -15,8 +15,8 @@ namespace Ioget.Tests
                 {"f1", "a"},
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(MyString));
-            Assert.AreEqual(new MyString("a"), myObject);
+            var myObject = new Instantiator().Bind(dic, typeof(My<string>));
+            Assert.AreEqual(My.Create("a"), myObject);
         }
 
         [Test]
@@ -27,8 +27,20 @@ namespace Ioget.Tests
                 {"f1", "1"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(MyInt));
-            Assert.AreEqual(new MyInt(1), myObject);
+            var myObject = new Instantiator().Bind(dic, typeof(My<int>));
+            Assert.AreEqual(My.Create(1), myObject);
+        }
+
+        [Test]
+        public void ShouldContructObjectWithParameterLong()
+        {
+            var dic = new Dictionary<string, string>
+            {
+                {"f1", "1"}
+            };
+
+            var myObject = new Instantiator().Bind(dic, typeof(My<long>));
+            Assert.AreEqual(My.Create(1L), myObject);
         }
 
         [Test]
@@ -44,23 +56,18 @@ namespace Ioget.Tests
         }
     }
 
-    public struct MyString
+    public struct My<T>
     {
-        private readonly string f1;
-
-        public MyString(string f1)
+        private readonly T f1;
+        public My(T f1)
         {
             this.f1 = f1;
         }
-    }
 
-    public struct MyInt
+    }
+    public static class My
     {
-        private readonly int f1;
-
-        public MyInt(int f1)
-        {
-            this.f1 = f1;
-        }
+        public static My<T> Create<T>(T t) { return new My<T>(t); }
     }
+
 }

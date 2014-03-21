@@ -13,7 +13,9 @@ namespace Ioget
         {
             convertions = new List<Conversion<object>>
             {
-                new IntConvertion(), new StringConversion()
+                new IntConvertion(), 
+                new StringConversion(),
+                new LongConvertion()
             };
         }
 
