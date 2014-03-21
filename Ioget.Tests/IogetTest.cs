@@ -42,6 +42,18 @@ namespace Ioget.Tests
             var myObject = new Instantiator().Bind(dic, typeof(My<long>));
             Assert.AreEqual(My.Create(1L), myObject);
         }
+        
+        [Test]
+        public void ShouldContructObjectWithParameterEnumFromString()
+        {
+            var dic = new Dictionary<string, string>
+            {
+                {"f1", "Asdrubal"}
+            };
+
+            var myObject = new Instantiator().Bind(dic, typeof(My<E>));
+            Assert.AreEqual(My.Create(E.Asdrubal), myObject);
+        }
 
         [Test]
         public void ShouldWorkWithTuples()
@@ -54,6 +66,11 @@ namespace Ioget.Tests
             var myObject = new Instantiator().Bind(dic, typeof(Tuple<string>));
             Assert.AreEqual(new Tuple<string>("a"), myObject);
         }
+    }
+
+    public enum E
+    {
+        Asdrubal, Abobrinha
     }
 
     public struct My<T>

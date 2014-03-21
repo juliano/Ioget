@@ -15,7 +15,8 @@ namespace Ioget
             {
                 new IntConvertion(), 
                 new StringConversion(),
-                new LongConvertion()
+                new LongConvertion(),
+                new EnumConvertion()
             };
         }
 
@@ -28,7 +29,7 @@ namespace Ioget
 
         private object ResolveType(ParameterInfo info, string value)
         {
-            return convertions.First(c => c.IsApplicable(info)).Apply(value);
+            return convertions.First(c => c.IsApplicable(info)).Apply(info, value);
         }
     }
 }
