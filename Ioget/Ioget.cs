@@ -13,10 +13,11 @@ namespace Ioget
         {
             convertions = new List<Conversion<object>>
             {
-                new IntConvertion(), 
+                new IntConversion(), 
                 new StringConversion(),
-                new LongConvertion(),
-                new EnumConvertion()
+                new LongConversion(),
+                new EnumConversion(),
+                new ConversionNotFound()
             };
         }
 

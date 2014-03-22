@@ -39,7 +39,7 @@ namespace Ioget
         }
     }
 
-    public class LongConvertion : PrimitiveApplicableConversion<long>
+    public class LongConversion : PrimitiveApplicableConversion<long>
     {
         public override object Apply(ParameterInfo info, string value)
         {
@@ -47,7 +47,7 @@ namespace Ioget
         }
     }
 
-    public class IntConvertion : PrimitiveApplicableConversion<int>
+    public class IntConversion : PrimitiveApplicableConversion<int>
     {
         public override object Apply(ParameterInfo info, string value)
         {
@@ -55,7 +55,7 @@ namespace Ioget
         }
     }
 
-    public class EnumConvertion : Conversion<Enum>
+    public class EnumConversion : Conversion<Enum>
     {
         public bool IsApplicable(ParameterInfo info)
         {
