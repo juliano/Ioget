@@ -128,6 +128,33 @@ namespace Ioget.Tests
         }
 
         [Test]
+        public void ShouldRefuseToConstructIfNotAllParamentersAreSent()
+        {
+            var dic = new Dictionary<string, string>();
+
+            try
+            {
+                var myObject = new Instantiator().Bind(dic, typeof(My<double>));
+                Assert.Fail();
+            }
+            catch (MissingParameterKey e)
+            {
+            }
+        }
+
+        [Test]
+        public void ShouldContructObjectWithNonPrimitiveParameter()
+        {
+            var dic = new Dictionary<string, string>
+            {
+                {"f1.f1", "asdf"}
+            };
+
+            var myObject = new Instantiator().Bind(dic, typeof(My<My<string>>));
+            Assert.AreEqual(My.Create(My.Create("asdf")), myObject);
+        }
+
+        [Test]
         public void ShouldWorkWithTuples()
         {
             var dic = new Dictionary<string, string>
