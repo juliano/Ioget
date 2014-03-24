@@ -80,6 +80,18 @@ namespace Ioget.Tests
         }
 
         [Test]
+        public void ShouldContructObjectWithParameterShort()
+        {
+            var dic = new Dictionary<string, string>
+            {
+                {"f1", "123"}
+            };
+
+            var myObject = new Instantiator().Bind(dic, typeof(My<short>));
+            Assert.AreEqual(My.Create((Int16)123), myObject);
+        }
+
+        [Test]
         public void ShouldWorkWithTuples()
         {
             var dic = new Dictionary<string, string>

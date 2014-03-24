@@ -83,6 +83,14 @@ namespace Ioget
         }
     }
 
+    public class ShortConversion : PrimitiveApplicableConversion<short>
+    {
+        public override object Apply(ParameterInfo info, string value)
+        {
+            return Convert.ToInt16(value);
+        }
+    }
+
     public class ConversionNotFound : Conversion<object>
     {
         public bool IsApplicable(ParameterInfo info)
