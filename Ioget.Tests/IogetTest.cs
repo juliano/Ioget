@@ -116,6 +116,18 @@ namespace Ioget.Tests
         }
 
         [Test]
+        public void ShouldContructObjectWithParameterDouble()
+        {
+            var dic = new Dictionary<string, string>
+            {
+                {"f1", "99.12345"}
+            };
+
+            var myObject = new Instantiator().Bind(dic, typeof(My<double>));
+            Assert.AreEqual(My.Create(99.12345), myObject);
+        }
+
+        [Test]
         public void ShouldWorkWithTuples()
         {
             var dic = new Dictionary<string, string>

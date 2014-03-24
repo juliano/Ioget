@@ -69,4 +69,12 @@ namespace Ioget
             return float.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
         }
     }
+
+    public class DoubleConversion : PrimitiveApplicableConversion<double>
+    {
+        public override object Apply(ParameterInfo info, string value)
+        {
+            return double.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
+        }
+    }
 }
