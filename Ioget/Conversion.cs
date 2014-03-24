@@ -75,6 +75,14 @@ namespace Ioget
         }
     }
 
+    public class CharConversion : PrimitiveApplicableConversion<char>
+    {
+        public override object Apply(ParameterInfo info, string value)
+        {
+            return Convert.ToChar(value);
+        }
+    }
+
     public class ConversionNotFound : Conversion<object>
     {
         public bool IsApplicable(ParameterInfo info)

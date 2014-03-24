@@ -68,6 +68,18 @@ namespace Ioget.Tests
         }
 
         [Test]
+        public void ShouldContructObjectWithParameterChar()
+        {
+            var dic = new Dictionary<string, string>
+            {
+                {"f1", "a"}
+            };
+
+            var myObject = new Instantiator().Bind(dic, typeof(My<char>));
+            Assert.AreEqual(My.Create('a'), myObject);
+        }
+
+        [Test]
         public void ShouldWorkWithTuples()
         {
             var dic = new Dictionary<string, string>
