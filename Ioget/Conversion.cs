@@ -91,6 +91,14 @@ namespace Ioget
         }
     }
 
+    public class ByteConversion : PrimitiveApplicableConversion<byte>
+    {
+        public override object Apply(ParameterInfo info, string value)
+        {
+            return Convert.ToByte(value);
+        }
+    }
+
     public class ConversionNotFound : Conversion<object>
     {
         public bool IsApplicable(ParameterInfo info)

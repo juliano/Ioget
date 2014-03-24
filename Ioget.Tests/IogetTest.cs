@@ -92,6 +92,18 @@ namespace Ioget.Tests
         }
 
         [Test]
+        public void ShouldContructObjectWithParameterByte()
+        {
+            var dic = new Dictionary<string, string>
+            {
+                {"f1", "123"}
+            };
+
+            var myObject = new Instantiator().Bind(dic, typeof(My<byte>));
+            Assert.AreEqual(My.Create((byte)123), myObject);
+        }
+
+        [Test]
         public void ShouldWorkWithTuples()
         {
             var dic = new Dictionary<string, string>
