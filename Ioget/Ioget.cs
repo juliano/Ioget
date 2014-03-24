@@ -30,7 +30,7 @@ namespace Ioget
         public object Bind(Dictionary<string, string> dic, Type type)
         {
             var constructor = type.GetConstructors().First();
-            var parameters = constructor.GetParameters().Select(p => ResolveType(p, dic[p.Name]));
+            var parameters = constructor.GetParameters().Select(param => ResolveType(param, dic[param.Name]));
             return constructor.Invoke(parameters.ToArray());
         }
 
