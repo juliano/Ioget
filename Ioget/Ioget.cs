@@ -17,6 +17,7 @@ namespace Ioget
                 new ShortConversion(),
                 new IntConversion(), 
                 new LongConversion(),
+                new FloatConversion(),
                 new BooleanConversion(),
                 new StringConversion(),
                 new EnumConversion(),

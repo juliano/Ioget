@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Reflection;
 
 namespace Ioget
@@ -58,6 +59,14 @@ namespace Ioget
         public override object Apply(ParameterInfo info, string value)
         {
             return Convert.ToByte(value);
+        }
+    }
+
+    public class FloatConversion : PrimitiveApplicableConversion<float>
+    {
+        public override object Apply(ParameterInfo info, string value)
+        {
+            return float.Parse(value, CultureInfo.InvariantCulture.NumberFormat);
         }
     }
 }

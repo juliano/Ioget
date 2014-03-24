@@ -104,6 +104,18 @@ namespace Ioget.Tests
         }
 
         [Test]
+        public void ShouldContructObjectWithParameterFloat()
+        {
+            var dic = new Dictionary<string, string>
+            {
+                {"f1", "99.12345"}
+            };
+
+            var myObject = new Instantiator().Bind(dic, typeof(My<float>));
+            Assert.AreEqual(My.Create((float)99.12345), myObject);
+        }
+
+        [Test]
         public void ShouldWorkWithTuples()
         {
             var dic = new Dictionary<string, string>
@@ -128,7 +140,6 @@ namespace Ioget.Tests
         {
             this.f1 = f1;
         }
-
     }
     public static class My
     {

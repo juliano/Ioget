@@ -39,8 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicableConversion.cs" />
     <Compile Include="Conversion.cs" />
     <Compile Include="Ioget.cs" />
+    <Compile Include="PrimitiveApplicableConversion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
