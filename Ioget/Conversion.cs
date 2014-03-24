@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Text.RegularExpressions;
 
 namespace Ioget
 {
@@ -65,6 +64,14 @@ namespace Ioget
         public object Apply(ParameterInfo info, string value)
         {
             return Enum.Parse(info.ParameterType, value);
+        }
+    }
+
+    public class BooleanConversion : PrimitiveApplicableConversion<bool>
+    {
+        public override object Apply(ParameterInfo info, string value)
+        {
+            return Convert.ToBoolean(value);
         }
     }
 

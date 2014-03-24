@@ -16,8 +16,9 @@ namespace Ioget
                 new IntConversion(), 
                 new StringConversion(),
                 new LongConversion(),
+                new BooleanConversion(),
                 new EnumConversion(),
-                new ConversionNotFound()
+                new ConversionNotFound(),
             };
         }
 

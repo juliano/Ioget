@@ -42,7 +42,7 @@ namespace Ioget.Tests
             var myObject = new Instantiator().Bind(dic, typeof(My<long>));
             Assert.AreEqual(My.Create(1L), myObject);
         }
-        
+
         [Test]
         public void ShouldContructObjectWithParameterEnumFromString()
         {
@@ -53,6 +53,18 @@ namespace Ioget.Tests
 
             var myObject = new Instantiator().Bind(dic, typeof(My<E>));
             Assert.AreEqual(My.Create(E.Asdrubal), myObject);
+        }
+
+        [Test]
+        public void ShouldContructObjectWithParameterBoolean()
+        {
+            var dic = new Dictionary<string, string>
+            {
+                {"f1", "true"}
+            };
+
+            var myObject = new Instantiator().Bind(dic, typeof(My<bool>));
+            Assert.AreEqual(My.Create(true), myObject);
         }
 
         [Test]
