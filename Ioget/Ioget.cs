@@ -57,7 +57,5 @@ namespace Ioget
     public class MissingParameterKey : Exception
     {
         public MissingParameterKey(string message) : base(message) { }
-
     }
-
 }

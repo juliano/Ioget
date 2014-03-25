@@ -22,25 +22,4 @@ namespace Ioget
             return Enum.Parse(info.ParameterType, value);
         }
     }
-
-    public class ConversionNotFound : Conversion<object>
-    {
-        public bool IsApplicable(ParameterInfo info)
-        {
-            return true;
-        }
-
-        public object Apply(ParameterInfo info, string value)
-        {
-            throw new TypeConversionFailure("Could not find conversion to type " + info.ParameterType);
-        }
-    }
-
-    public class TypeConversionFailure : Exception
-    {
-        public TypeConversionFailure(string message)
-            : base(message)
-        {
-        }
-    }
 }
