@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Ioget</id>
+    <version>1.0.0</version>
+    <authors>Juliano Alves, Jonas Abreu</authors>
+    <owners>Juliano Alves</owners>
+    <projectUrl>https://github.com/juliano/Ioget</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Immutable Object Graph Instantiation for .Net</description>
+    <copyright>Copyright 2014</copyright>
+  </metadata>
+</package>
