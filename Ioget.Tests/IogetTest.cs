@@ -165,6 +165,19 @@ namespace Ioget.Tests
             var myObject = new Instantiator().Bind(dic, typeof(Tuple<string>));
             Assert.AreEqual(new Tuple<string>("a"), myObject);
         }
+
+        [Test]
+        public void ShouldConstructObjectUsingSuitableConstructor()
+        {
+            var dic = new Dictionary<string, string>
+            {
+                {"f1", "a"},
+                {"f2", "1"}
+            };
+
+            var myObject = new Instantiator().Bind(dic, typeof(TwoParams));
+            Assert.AreEqual(new TwoParams("a", 1), myObject);
+        }
     }
 
     public enum E
@@ -185,4 +198,21 @@ namespace Ioget.Tests
         public static My<T> Create<T>(T t) { return new My<T>(t); }
     }
 
+    public struct TwoParams
+    {
+        private readonly string f1;
+        private readonly int f2;
+
+        public TwoParams(string f1)
+        {
+            this.f1 = f1;
+            this.f2 = 0;
+        }
+
+        public TwoParams(string f1, int f2)
+        {
+            this.f1 = f1;
+            this.f2 = f2;
+        }
+    }
 }

@@ -28,7 +28,8 @@ namespace Ioget
 
         public object Bind(Dictionary<string, string> dic, Type type)
         {
-            var constructor = type.GetConstructors().First();
+            var constructor = type.GetConstructors()
+                .First(c => c.GetParameters().Count() == dic.Count);
             var parameters = constructor.GetParameters().Select(param =>
             {
                 var conversions = ConversionFor(param);
