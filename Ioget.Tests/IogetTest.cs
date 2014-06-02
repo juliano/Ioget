@@ -15,7 +15,7 @@ namespace Ioget.Tests
                 {"f1", "a"},
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(My<string>));
+            var myObject = new Instantiator().Bind<My<string>>(dic);
             Assert.AreEqual(My.Create("a"), myObject);
         }
 
@@ -27,7 +27,7 @@ namespace Ioget.Tests
                 {"f1", "1"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(My<int>));
+            var myObject = new Instantiator().Bind<My<int>>(dic);
             Assert.AreEqual(My.Create(1), myObject);
         }
 
@@ -39,7 +39,7 @@ namespace Ioget.Tests
                 {"f1", "1"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(My<long>));
+            var myObject = new Instantiator().Bind<My<long>>(dic);
             Assert.AreEqual(My.Create(1L), myObject);
         }
 
@@ -51,7 +51,7 @@ namespace Ioget.Tests
                 {"f1", "Asdrubal"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(My<E>));
+            var myObject = new Instantiator().Bind<My<E>>(dic);
             Assert.AreEqual(My.Create(E.Asdrubal), myObject);
         }
 
@@ -63,7 +63,7 @@ namespace Ioget.Tests
                 {"f1", "true"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(My<bool>));
+            var myObject = new Instantiator().Bind<My<bool>>(dic);
             Assert.AreEqual(My.Create(true), myObject);
         }
 
@@ -75,7 +75,7 @@ namespace Ioget.Tests
                 {"f1", "a"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(My<char>));
+            var myObject = new Instantiator().Bind<My<char>>(dic);
             Assert.AreEqual(My.Create('a'), myObject);
         }
 
@@ -87,7 +87,7 @@ namespace Ioget.Tests
                 {"f1", "123"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(My<short>));
+            var myObject = new Instantiator().Bind<My<short>>(dic);
             Assert.AreEqual(My.Create((Int16)123), myObject);
         }
 
@@ -99,7 +99,7 @@ namespace Ioget.Tests
                 {"f1", "123"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(My<byte>));
+            var myObject = new Instantiator().Bind<My<byte>>(dic);
             Assert.AreEqual(My.Create((byte)123), myObject);
         }
 
@@ -111,7 +111,7 @@ namespace Ioget.Tests
                 {"f1", "99.12345"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(My<float>));
+            var myObject = new Instantiator().Bind<My<float>>(dic);
             Assert.AreEqual(My.Create((float)99.12345), myObject);
         }
 
@@ -123,21 +123,39 @@ namespace Ioget.Tests
                 {"f1", "99.12345"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(My<double>));
+            var myObject = new Instantiator().Bind<My<double>>(dic);
             Assert.AreEqual(My.Create(99.12345), myObject);
         }
 
         [Test]
         public void ShouldRefuseToConstructIfNotAllParamentersAreSent()
         {
+            var dic = new Dictionary<string, string>
+            {
+                {"xxxx", "99.12345"}
+            };
+
+            try
+            {
+                new Instantiator().Bind<My<double>>(dic);
+                Assert.Fail();
+            }
+            catch (MissingParameterKey)
+            {
+            }
+        }
+
+        [Test]
+        public void ShouldRefuseToConstructIfConstructorNotIsFound()
+        {
             var dic = new Dictionary<string, string>();
 
             try
             {
-                var myObject = new Instantiator().Bind(dic, typeof(My<double>));
+                new Instantiator().Bind<My<double>>(dic);
                 Assert.Fail();
             }
-            catch (MissingParameterKey e)
+            catch (MissingConstructor)
             {
             }
         }
@@ -150,7 +168,7 @@ namespace Ioget.Tests
                 {"f1.f1", "asdf"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(My<My<string>>));
+            var myObject = new Instantiator().Bind<My<My<string>>>(dic);
             Assert.AreEqual(My.Create(My.Create("asdf")), myObject);
         }
 
@@ -162,7 +180,7 @@ namespace Ioget.Tests
                 {"item1", "a"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(Tuple<string>));
+            var myObject = new Instantiator().Bind<Tuple<string>>(dic);
             Assert.AreEqual(new Tuple<string>("a"), myObject);
         }
 
@@ -175,7 +193,7 @@ namespace Ioget.Tests
                 {"f2", "1"}
             };
 
-            var myObject = new Instantiator().Bind(dic, typeof(TwoParams));
+            var myObject = new Instantiator().Bind<TwoParams>(dic);
             Assert.AreEqual(new TwoParams("a", 1), myObject);
         }
     }
