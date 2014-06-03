@@ -26,6 +26,12 @@ namespace Ioget
             };
         }
 
+        public Instantiator SetCustomConversion(Conversion<object> conversion)
+        {
+            conversions.Add(conversion);
+            return this;
+        }
+
         public T Bind<T>(Dictionary<string, string> dic)
         {
             var typeParameterType = typeof(T);
@@ -72,5 +78,10 @@ namespace Ioget
     public class MissingConstructor : Exception
     {
         public MissingConstructor(string message) : base(message) { }
+    }
+
+    public class MissingConversion : Exception
+    {
+        public MissingConversion(string message) : base(message) { }
     }
 }
