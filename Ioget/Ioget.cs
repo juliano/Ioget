@@ -26,10 +26,21 @@ namespace Ioget
             };
         }
 
-        public object Bind(Dictionary<string, string> dic, Type type)
+        public Instantiator SetCustomConversion(Conversion<object> conversion)
         {
-            var constructor = type.GetConstructors()
-                .First(c => c.GetParameters().Count() == dic.Count);
+            conversions.Add(conversion);
+            return this;
+        }
+
+        public T Bind<T>(Dictionary<string, string> dic)
+        {
+            var typeParameterType = typeof(T);
+            var constructor = typeParameterType.GetConstructors()
+                .FirstOrDefault(c => c.GetParameters().Count() == dic.Count);
+
+            if (constructor == null)
+                throw new MissingConstructor("Could not find constructor for parameters dictionary");
+
             var parameters = constructor.GetParameters().Select(param =>
             {
                 var conversions = ConversionFor(param);
@@ -39,14 +50,18 @@ namespace Ioget
                         Where(kv => kv.Key.StartsWith(param.Name + ".")).
                         Select(kv => new KeyValuePair<string, string>(kv.Key.Substring(param.Name.Length + 1), kv.Value)).
                         ToDictionary(kv => kv.Key, kv => kv.Value);
-                    return Bind(newDic, param.ParameterType);
+
+
+                    var bindMethod = typeof(Instantiator).GetMethod("Bind");
+                    var genericRef = bindMethod.MakeGenericMethod(param.ParameterType);
+                    return genericRef.Invoke(this, new object[] { newDic });
                 }
                 if (!dic.ContainsKey(param.Name))
                     throw new MissingParameterKey("Could not find key for parameter " + param.Name);
 
                 return conversions.First().Apply(param, dic[param.Name]);
             });
-            return constructor.Invoke(parameters.ToArray());
+            return (T)constructor.Invoke(parameters.ToArray());
         }
 
         private List<Conversion<object>> ConversionFor(ParameterInfo info)
@@ -58,5 +73,15 @@ namespace Ioget
     public class MissingParameterKey : Exception
     {
         public MissingParameterKey(string message) : base(message) { }
+    }
+
+    public class MissingConstructor : Exception
+    {
+        public MissingConstructor(string message) : base(message) { }
+    }
+
+    public class MissingConversion : Exception
+    {
+        public MissingConversion(string message) : base(message) { }
     }
 }
